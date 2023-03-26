@@ -3,7 +3,7 @@ import { _ as _decorate, s, e, y, a as _taggedTemplateLiteral, b as e$1, c as _i
 var _templateObject;
 // import { updatePluginValue } from '../../utils/events';
 
-var NintexGoogleAnalytics = _decorate([e$1('nintex-google-analytics')], function (_initialize, _LitElement) {
+var NintexGoogleAnalytics = _decorate([e$1('lilly-google-analytics')], function (_initialize, _LitElement) {
   var NintexGoogleAnalytics = /*#__PURE__*/function (_LitElement2) {
     _inherits(NintexGoogleAnalytics, _LitElement2);
     var _super = _createSuper(NintexGoogleAnalytics);
