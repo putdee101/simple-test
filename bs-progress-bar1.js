@@ -1,5 +1,5 @@
 import { _ as _decorate, s, i, a as _taggedTemplateLiteral, e, y, b as e$1, c as _inherits, d as _createSuper, f as _createClass, g as _classCallCheck, h as _assertThisInitialized } from './query-assigned-elements-1ac3617b.js';
-
+import './bundle.css';
 var _templateObject, _templateObject2;
 var LillyBsProgressBar = _decorate([e$1('lilly-bs-progress-bar')], function (_initialize, _LitElement) {
   var LillyBsProgressBar = /*#__PURE__*/function (_LitElement2) {
