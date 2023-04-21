@@ -96,6 +96,7 @@ export default class AddressAutoComplete extends LitElement {
             composed: true,
             detail: addressObject,
         };
+        console.log(addressObject);
         const nintexEvent = new CustomEvent('ntx-value-change', args);
         this.dispatchEvent(nintexEvent);
     }
