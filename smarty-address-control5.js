@@ -1,5 +1,5 @@
 import { html, LitElement, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
-const PLUGIN_NAME = 'smarty-streets-address'
+const PLUGIN_NAME = 'smarty-address'
 
 export default class AddressAutoComplete extends LitElement {
 
