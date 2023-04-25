@@ -15,7 +15,9 @@ export default class AddressAutoComplete extends LitElement {
             border-top: 0px;
         }
         .input-style {
-            border-radius: 10px;
+            border-radius: 10px !important;
+            border-color: black !important;
+            margin-top: 5px;
             height: 45px;
             color: black;
         }
@@ -103,10 +105,11 @@ export default class AddressAutoComplete extends LitElement {
             detail: addressObject,
         };
         let addObj = JSON.parse(addressObject);
-        document.getElementById('_03f229cc473dbbe93aad9adf9d9b956a').value = addObj.street_line;
+        // document.getElementById('').value = addObj.street_line;
         document.getElementById('_40c88161d76163ec7d870d48e2b3e35e').value = addObj.city;
         document.getElementById('_1507f946234885ea870b5cc8c0c4f0ae').value = addObj.state;
         document.getElementById('_b4d114d7eeb0b7cd17863bac2b068ec6').value = addObj.zipcode;
+        this.inputValue = addObj.street_line;
         const nintexEvent = new CustomEvent('ntx-value-change', args);
         this.dispatchEvent(nintexEvent);
     }
