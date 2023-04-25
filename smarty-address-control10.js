@@ -62,8 +62,10 @@ export default class AddressAutoComplete extends LitElement {
     render() {
         const inputStyle = this.addresses.length > 0 ? 'border-radius: 0.25rem 0.25rem 0px 0px;' : '';
         return  html`
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
             <label class="nx-form-label nx-break-word nx-theme-label-1"><span class="nx-title">STREET ADDRESS</span></label>
-            <div class="nx-zinc-control-input" id="input-container" style="line-height: 1rem;">            
+            <div class="input-group input-group-sm nx-zinc-control-input" id="input-container" style="line-height: 1rem;">            
                 <input type="text" class="form-control nx-theme-input-1" value="${this.inputValue}" @keyup=${this.updateInputValue} aria-label="address" id="address" style="font-size: 14px; padding: 7px 12px 7px 12px; ${inputStyle}"/>
             </div>
             <div>
