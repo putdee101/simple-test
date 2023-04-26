@@ -34,6 +34,10 @@ export default class AddressAutoComplete extends LitElement {
         apiKey: { type: String },
         addresses: { type: Array },
         value: { type: String },
+        labelName: {type: String },
+        cityName: {type: String },
+        stateName: {type: String },
+        zipCodeName: {type: String },
     };
 
     static get properties() {
@@ -57,6 +61,22 @@ export default class AddressAutoComplete extends LitElement {
                     type: 'string',
                     title: 'Smarty Embedded API Key',
                 },
+                labelName: {
+                    type: 'string',
+                    title: 'Address Field Label Name',
+                },
+                cityName: {
+                    type: 'string',
+                    title: 'City Field Label Name',
+                },
+                stateName: {
+                    type: 'string',
+                    title: 'State Field Label Name',
+                },
+                zipCodeName: {
+                    type: 'string',
+                    title: 'Zip Code Field Label Name',
+                },
                 value: {
                     type: 'string',
                     title: 'Address',
@@ -78,7 +98,7 @@ export default class AddressAutoComplete extends LitElement {
         return  html`
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-            <label class="nx-form-label nx-break-word nx-theme-label-1"><span class="nx-title label-style">STREET ADDRESS</span></label>
+            <label class="nx-form-label nx-break-word nx-theme-label-1"><span class="nx-title label-style">${this.labelName}</span></label>
             <div class="input-group input-group-sm nx-zinc-control-input" id="input-container" style="line-height: 1rem;">            
                 <input type="text" class="form-control nx-theme-input-1 input-style" value="${this.inputValue}" @keyup=${this.updateInputValue} aria-label="address" id="address" style="font-size: 14px; padding: 7px 12px 7px 12px; ${inputStyle}"/>
             </div>
@@ -113,9 +133,9 @@ export default class AddressAutoComplete extends LitElement {
         };
         
         inputElement.value = addObj.street_line;
-        document.querySelector(`[aria-label="CITY"]`) = addObj.city;
-        document.querySelector(`[aria-label="STATE"]`) = addObj.state;
-        document.querySelector(`[aria-label="ZIP CODE"]`) = addObj.zipcode;
+        document.querySelector(`[aria-label="${this.cityName}"]`).value = addObj.city;
+        document.querySelector(`[aria-label="${this.stateName}"]`).value = addObj.state;
+        document.querySelector(`[aria-label="${this.zipCodeName}"]`).value = addObj.zipcode;
 //         this.inputValue = addObj.street_line;
         const nintexEvent = new CustomEvent('ntx-value-change', args);
         this.dispatchEvent(nintexEvent);
