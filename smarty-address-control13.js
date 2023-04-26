@@ -24,6 +24,9 @@ export default class AddressAutoComplete extends LitElement {
         .label-style {
             font-size: 14px;
         }
+        .list-group-style {
+            z-index: 1;
+        }
     `;
     
     static properties = {
@@ -79,7 +82,7 @@ export default class AddressAutoComplete extends LitElement {
                 <input type="text" class="form-control nx-theme-input-1 input-style" value="${this.inputValue}" @keyup=${this.updateInputValue} aria-label="address" id="address" style="font-size: 14px; padding: 7px 12px 7px 12px; ${inputStyle}"/>
             </div>
             <div>
-                <ul class="list-group">
+                <ul class="list-group list-group-style">
                     ${this.addresses.map((address, index) => html`<li class="list-group-item list-group-item-action" aria-label="${JSON.stringify(address)}" id="${index}" @click="${this.handleClick}" style="padding: 0.25rem 0.5rem; font-size: .875rem;">${address.street_line} ${address.secondary} ${address.city}, ${address.state} ${address.zipcode}</li>`)}
                 </ul>
             </div>
@@ -108,11 +111,11 @@ export default class AddressAutoComplete extends LitElement {
             detail: addressObject,
         };
         let addObj = JSON.parse(addressObject);
-        // document.getElementById('').value = addObj.street_line;
-        document.getElementById('_40c88161d76163ec7d870d48e2b3e35e').value = addObj.city;
-        document.getElementById('_1507f946234885ea870b5cc8c0c4f0ae').value = addObj.state;
-        document.getElementById('_b4d114d7eeb0b7cd17863bac2b068ec6').value = addObj.zipcode;
-        this.inputValue = addObj.street_line;
+        document.getElementById('address').value = addObj.street_line;
+        document.getElementById('_6c64e08507924f71bcf7e5d7b1ee6a06').value = addObj.city;
+        document.getElementById('_d015a2dbddef45cb9d344e8769c9ecef').value = addObj.state;
+        document.getElementById('_2a5f6a2419ff40de886797823f6500a4').value = addObj.zipcode;
+//         this.inputValue = addObj.street_line;
         const nintexEvent = new CustomEvent('ntx-value-change', args);
         this.dispatchEvent(nintexEvent);
     }
