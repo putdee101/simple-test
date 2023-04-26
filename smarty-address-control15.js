@@ -26,6 +26,7 @@ export default class AddressAutoComplete extends LitElement {
         }
         .list-group-style {
             z-index: 1;
+            position: absolute;
         }
     `;
     
@@ -99,19 +100,19 @@ export default class AddressAutoComplete extends LitElement {
 
     handleClick(event) {
         const addressObject = event.target.ariaLabel;
-        const inputElement = this.renderRoot.querySelector('#address');
+        let inputElement = this.renderRoot.querySelector('#address');
         inputElement.value = event.target.innerText;
         this.addresses = [];
-
+        let addObj = JSON.parse(addressObject);
         this.value = addressObject;
         const args = {
             bubbles: true,
             cancelable: false,
             composed: true,
-            detail: addressObject,
+            detail: addObj.street_line,
         };
-        let addObj = JSON.parse(addressObject);
-//         document.getElementById('address').value = addObj.street_line;
+        
+        inputElement.value = addObj.street_line;
         document.getElementById('_6c64e08507924f71bcf7e5d7b1ee6a06').value = addObj.city;
         document.getElementById('_d015a2dbddef45cb9d344e8769c9ecef').value = addObj.state;
         document.getElementById('_2a5f6a2419ff40de886797823f6500a4').value = addObj.zipcode;
