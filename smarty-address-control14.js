@@ -111,7 +111,7 @@ export default class AddressAutoComplete extends LitElement {
             detail: addressObject,
         };
         let addObj = JSON.parse(addressObject);
-        document.getElementById('address').value = addObj.street_line;
+//         document.getElementById('address').value = addObj.street_line;
         document.getElementById('_6c64e08507924f71bcf7e5d7b1ee6a06').value = addObj.city;
         document.getElementById('_d015a2dbddef45cb9d344e8769c9ecef').value = addObj.state;
         document.getElementById('_2a5f6a2419ff40de886797823f6500a4').value = addObj.zipcode;
