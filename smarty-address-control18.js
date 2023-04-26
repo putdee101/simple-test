@@ -22,7 +22,10 @@ export default class AddressAutoComplete extends LitElement {
             color: black;
         }
         .label-style {
+            color: #000000;
+            font-family: "Lato", "Helvetica", "Arial", sans-serif;
             font-size: 14px;
+            min-height: 14px;
         }
         .list-group-style {
             z-index: 1;
