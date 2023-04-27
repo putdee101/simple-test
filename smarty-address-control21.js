@@ -37,9 +37,7 @@ export default class AddressAutoComplete extends LitElement {
         addresses: { type: Array },
         value: { type: String },
         labelName: {type: String },
-        cityName: {type: String },
-        stateName: {type: String },
-        zipCodeName: {type: String },
+        pageName: {type: String },
     };
 
     static get properties() {
@@ -67,17 +65,9 @@ export default class AddressAutoComplete extends LitElement {
                     type: 'string',
                     title: 'Address Field Label Name',
                 },
-                cityName: {
+                pageName: {
                     type: 'string',
-                    title: 'City Field Label Name',
-                },
-                stateName: {
-                    type: 'string',
-                    title: 'State Field Label Name',
-                },
-                zipCodeName: {
-                    type: 'string',
-                    title: 'Zip Code Field Label Name',
+                    title: 'Page Name'
                 },
                 value: {
                     type: 'string',
@@ -135,15 +125,15 @@ export default class AddressAutoComplete extends LitElement {
         };
         
         inputElement.value = addObj.street_line;
-        document.querySelector(`[aria-label="${this.cityName}"]`).value = addObj.city;
-        document.querySelector(`[aria-label="${this.cityName}"]`).focus();
-        document.querySelector(`[aria-label="${this.cityName}"]`).blur();
-        document.querySelector(`[aria-label="${this.stateName}"]`).value = addObj.state;
-        document.querySelector(`[aria-label="${this.stateName}"]`).focus();
-        document.querySelector(`[aria-label="${this.stateName}"]`).blur();
-        document.querySelector(`[aria-label="${this.zipCodeName}"]`).value = addObj.zipcode;
-        document.querySelector(`[aria-label="${this.zipCodeName}"]`).focus();
-        document.querySelector(`[aria-label="${this.zipCodeName}"]`).blur();
+        document.querySelector(`.${this.pageName}-user-city input`).value = addObj.city;
+        document.querySelector(`.${this.pageName}-user-city input`).focus();
+        document.querySelector(`.${this.pageName}-user-city input`).blur();
+        document.querySelector(`.${this.pageName}-user-state input`).value = addObj.state;
+        document.querySelector(`.${this.pageName}-user-state input`).focus();
+        document.querySelector(`.${this.pageName}-user-state input`).blur();
+        document.querySelector(`.${this.pageName}-user-zip input`).value = addObj.zipcode;
+        document.querySelector(`.${this.pageName}-user-zip input`).focus();
+        document.querySelector(`.${this.pageName}-user-zip input`).blur();
 //         this.inputValue = addObj.street_line;
         const nintexEvent = new CustomEvent('ntx-value-change', args);
         this.dispatchEvent(nintexEvent);
