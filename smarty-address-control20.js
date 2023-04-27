@@ -136,8 +136,14 @@ export default class AddressAutoComplete extends LitElement {
         
         inputElement.value = addObj.street_line;
         document.querySelector(`[aria-label="${this.cityName}"]`).value = addObj.city;
+        document.querySelector(`[aria-label="${this.cityName}"]`).focus();
+        document.querySelector(`[aria-label="${this.cityName}"]`).blur();
         document.querySelector(`[aria-label="${this.stateName}"]`).value = addObj.state;
+        document.querySelector(`[aria-label="${this.stateName}"]`).focus();
+        document.querySelector(`[aria-label="${this.stateName}"]`).blur();
         document.querySelector(`[aria-label="${this.zipCodeName}"]`).value = addObj.zipcode;
+        document.querySelector(`[aria-label="${this.zipCodeName}"]`).focus();
+        document.querySelector(`[aria-label="${this.zipCodeName}"]`).blur();
 //         this.inputValue = addObj.street_line;
         const nintexEvent = new CustomEvent('ntx-value-change', args);
         this.dispatchEvent(nintexEvent);
