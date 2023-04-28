@@ -32,19 +32,22 @@ var LillyPageCheck = _decorate([e('lilly-page-check')], function (_initialize, _
       kind: "method",
       key: "render",
       value: function render() {
-        var flag = false;
-        var inputList = document.querySelectorAll('.lilly-multiple-choice input');
-        inputList.forEach(function (item) {
-          if (item.checked) {
-            flag = true;
-          }
-        });
-        if (flag === false) {
-          document.querySelectorAll('#actionpanel1-group-control button').forEach(function (item) {
-            if (item.innerHTML.trim().toLowerCase() === 'continue') {
-              item.click();
+        var neededLabel = document.querySelector('.needed-label');
+        if (neededLabel.offsetParent !== null) {
+          var flag = false;
+          var inputList = document.querySelectorAll('.lilly-multiple-choice input');
+          inputList.forEach(function (item) {
+            if (item.checked) {
+              flag = true;
             }
           });
+          if (flag === false) {
+            document.querySelectorAll('#actionpanel1-group-control button').forEach(function (item) {
+              if (item.innerHTML.trim().toLowerCase() === 'continue') {
+                item.click();
+              }
+            });
+          }
         }
         return y(_templateObject || (_templateObject = _taggedTemplateLiteral([""])));
       }
