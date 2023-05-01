@@ -80,6 +80,7 @@ export default class AddressAutoComplete extends LitElement {
                 description: false,
                 defaultValue: false,
                 readOnly: false,
+                visibility: true,
             },
             events: ["ntx-value-change"],
         };
