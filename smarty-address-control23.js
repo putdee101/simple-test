@@ -77,7 +77,7 @@ export default class AddressAutoComplete extends LitElement {
             },
             standardProperties: {
                 fieldLabel: false,
-                description: false,
+                description: true,
                 defaultValue: false,
                 readOnly: false,
                 visibility: true,
