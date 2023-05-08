@@ -433,7 +433,7 @@ var LillyProgressBar = _decorate([e$2('lilly-progress-bar')], function (_initial
       "static": true,
       key: "styles",
       value: function value() {
-        return i$3(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    :host {\n      --mdc-theme-primary: #3F62D4;\n    }\n  "])));
+        return i$3(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    :host {\n      --mdc-theme-primary: var(--lilly-primary-color);\n    }\n  "])));
       }
     }, {
       kind: "field",
