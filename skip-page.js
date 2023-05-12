@@ -1,7 +1,7 @@
 import { _ as _decorate, s, y, a as _taggedTemplateLiteral, e, b as _inherits, c as _createSuper, d as _createClass, f as _classCallCheck, g as _assertThisInitialized } from './query-assigned-elements-370d3bd1.js';
 
 var _templateObject;
-var LillySkipPage = _decorate([e('lilly-skip-page')], function (_initialize, _LitElement) {
+var LillySkipPage = _decorate([e("lilly-skip-page")], function (_initialize, _LitElement) {
   var LillySkipPage = /*#__PURE__*/function (_LitElement2) {
     _inherits(LillySkipPage, _LitElement2);
     var _super = _createSuper(LillySkipPage);
@@ -32,26 +32,32 @@ var LillySkipPage = _decorate([e('lilly-skip-page')], function (_initialize, _Li
       kind: "method",
       key: "render",
       value: function render() {
+        var labelSeenCount = 0;
         setInterval(function () {
           var labelFlag = false;
-          document.querySelectorAll('.needed-label').forEach(function (label) {
-            if (label.offsetParent !== null) {
+          document.querySelectorAll(".needed-label").forEach(function (label) {
+            if (label.offsetParent !== null && labelSeenCount == 0) {
               labelFlag = true;
+              labelSeenCount++;
+            } else if (labelSeenCount > 0) {
+              labelFlag = true;
+              labelSeenCount++;
             }
           });
+          console.log(labelSeenCount);
           if (labelFlag) {
             var flag = false;
-            var inputList = document.querySelectorAll('.lilly-multiple-choice input');
+            var inputList = document.querySelectorAll(".lilly-multiple-choice input");
             inputList.forEach(function (item) {
               if (item.checked) {
                 flag = true;
               }
             });
             if (flag === false) {
-              document.querySelectorAll('#actionpanel1-group-control button').forEach(function (item) {
-                if (item.innerHTML.trim().toLowerCase() === 'continue' || item.innerHTML.trim().toLowerCase() === 'submit') {
+              document.querySelectorAll("#actionpanel1-group-control button").forEach(function (item) {
+                if (item.innerHTML.trim().toLowerCase() === "continue" || item.innerHTML.trim().toLowerCase() === "submit") {
                   var view = document.getElementById("ntxHostContent");
-                  view.style.visibility = 'hidden';
+                  view.style.visibility = "hidden";
                   item.click();
                 }
               });
