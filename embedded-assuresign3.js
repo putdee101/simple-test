@@ -97,10 +97,11 @@ export class EmbeddedAssureSign extends LitElement {
             }
         };
 
-        const response = await fetch('https://sb.assuresign.net/authentication/apiUser', {
+        const response = await fetch('http://localhost:8080/https://sb.assuresign.net/authentication/apiUser', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Origin': 'http://localhost:8080'
             },
             body: JSON.stringify(apiUserBody)
         });
