@@ -139,11 +139,11 @@ export class EmbeddedAssureSign extends LitElement {
                             },
                             {
                                 "name": "Patient Name",
-                                "value": "Deepak"
+                                "value": this.signerName
                             },
                             {
                                 "name": "Patient Email",
-                                "value": "deepak@gmail.com"
+                                "value": this.signerEmail
                             }
                         ]
                     }
