@@ -136,6 +136,14 @@ export class EmbeddedAssureSign extends LitElement {
                             {
                                 "name": "Signer 1 Phone",
                                 "value": this.signerPhone
+                            },
+                            {
+                                "name": "Patient Name",
+                                "value": "Deepak"
+                            },
+                            {
+                                "name": "Patient Email",
+                                "value": "deepak@gmail.com"
                             }
                         ]
                     }
@@ -143,12 +151,13 @@ export class EmbeddedAssureSign extends LitElement {
             }
         }
         
-        const submit = await fetch('https://dev.assuresign.net/api/documentnow/v3.7/submit',
+        const submit = await fetch('http://localhost:8080/https://sb.assuresign.net/api/documentnow/v3.7/submit',
         {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json',
+                'Origin': 'http://localhost:8080'
             },
             body: JSON.stringify(submitBody)
         });
@@ -157,7 +166,7 @@ export class EmbeddedAssureSign extends LitElement {
 
         const envelopeId = jsonSubmit.result.envelopeID;
         
-        const signingLinks = await fetch('https://dev.assuresign.net/api/documentnow/v3.7/envelope/'+ envelopeId +'/signingLinks',
+        const signingLinks = await fetch('https://sb.assuresign.net/api/documentnow/v3.7/envelope/'+ envelopeId +'/signingLinks',
             {
                 method: 'GET',
                 headers: {
