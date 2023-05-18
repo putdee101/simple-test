@@ -36,7 +36,7 @@ var LillyHideButton = _decorate([e("lilly-hide-button")], function (_initialize,
       kind: "method",
       key: "render",
       value: function render() {
-        setInterval(function () {
+        var timer = setInterval(function () {
           document.querySelectorAll("#appcontainer button").forEach(function (button) {
             if (button) {
               document.querySelectorAll("#actionpanel1-group-control button").forEach(function (actButton) {
@@ -49,6 +49,7 @@ var LillyHideButton = _decorate([e("lilly-hide-button")], function (_initialize,
               document.querySelectorAll("#actionpanel1-group-control button").forEach(function (actButton) {
                 if (actButton.innerHTML.trim().toLowerCase() === "continue") {
                   actButton.style.visibility = '';
+                  clearInterval(timer);
                 }
               });
             }
