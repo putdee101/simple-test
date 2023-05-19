@@ -151,7 +151,7 @@ export class EmbeddedAssureSign extends LitElement {
             }
         }
         
-        const submit = await fetch('http://localhost:8080/https://sb.assuresign.net/api/documentnow/v3.7/submit',
+        const submit = await fetch('https://sb.assuresign.net/api/documentnow/v3.7/submit',
         {
             method: 'POST',
             headers: {
