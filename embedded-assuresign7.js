@@ -101,7 +101,7 @@ export class EmbeddedAssureSign extends LitElement {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Origin': 'http://localhost:8080'
+//                 'Origin': 'http://localhost:8080'
             },
             body: JSON.stringify(apiUserBody)
         });
@@ -157,7 +157,7 @@ export class EmbeddedAssureSign extends LitElement {
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json',
-                'Origin': 'http://localhost:8080'
+//                 'Origin': 'http://localhost:8080'
             },
             body: JSON.stringify(submitBody)
         });
