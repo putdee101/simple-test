@@ -17,6 +17,8 @@ export class EmbeddedAssureSign extends LitElement {
         border: none;
       }
     `;
+
+    static redirectUrl = '';
     
     static properties = {
         src: { type: String },
@@ -29,7 +31,6 @@ export class EmbeddedAssureSign extends LitElement {
         assureSignApiUsername: { type: String },
         assureSignApiKey: { type: String },
         assureSignTemplateId: { type: String },
-        redirectUrl: {type: String}
     }
     
     static getMetaConfig() {
@@ -187,7 +188,7 @@ export class EmbeddedAssureSign extends LitElement {
 //             allow="geolocation *; microphone; camera"
 //             src=${jsonSigningLinks.result.signingLinks[0].url}
 //             ></iframe>`;
-        this.redirectUrl = jsonSigningLinks.result.signingLinks[0].url;
+        sessionStorage.setItem('redirectUrl', jsonSigningLinks.result.signingLinks[0].url);
         return jsonSigningLinks.result.signingLinks[0].url;
     }
     
@@ -206,11 +207,11 @@ export class EmbeddedAssureSign extends LitElement {
     render() {
         let timer = setInterval(function () {
             if(document.querySelector('.redirect-label').offsetParent != null) {
-                if(this.redirectUrl) {
+                if(sessionStorage.getItem('redirectUrl')) {
                     document.querySelectorAll("#actionpanel1-group-control button").forEach(function (item) {
                         if (item.innerHTML.trim().toLowerCase() === "continue" || item.innerHTML.trim().toLowerCase() === "submit") {
                             item.addEventListener("click", function (e) {
-                                window.location.replace(this.redirectUrl);
+                                window.location.replace(sessionStorage.getItem('redirectUrl'));
                                 clearInterval(timer);
                             })
                         }
