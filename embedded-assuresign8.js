@@ -28,7 +28,8 @@ export class EmbeddedAssureSign extends LitElement {
         signerPhone: { type: String },
         assureSignApiUsername: { type: String },
         assureSignApiKey: { type: String },
-        assureSignTemplateId: { type: String }
+        assureSignTemplateId: { type: String },
+        enableRedirect: {type: Boolean}
     }
     
     static getMetaConfig() {
@@ -179,13 +180,14 @@ export class EmbeddedAssureSign extends LitElement {
         const jsonSigningLinks = await signingLinks.json();
         
         let styles = {height: this.height};
-        return html`
-            <iframe
-            class="frame"
-            style=${styleMap(styles)}
-            allow="geolocation *; microphone; camera"
-            src=${jsonSigningLinks.result.signingLinks[0].url}
-            ></iframe>`;
+//         return html`
+//             <iframe
+//             class="frame"
+//             style=${styleMap(styles)}
+//             allow="geolocation *; microphone; camera"
+//             src=${jsonSigningLinks.result.signingLinks[0].url}
+//             ></iframe>`;
+        return jsonSigningLinks.result.signingLinks[0].url;
     }
     
     constructor() {
@@ -201,7 +203,22 @@ export class EmbeddedAssureSign extends LitElement {
 
     // Render the UI as a function of component state
     render() {
-        return html`${until(this.content, html`<span>Loading...</span>`)}`
+        let timer = setInterval(function () {
+            if(document.querySelector('.redirect-label').offsetParent != null) {
+                if(this.content) {
+                    document.querySelectorAll("#actionpanel1-group-control button").forEach(function (item) {
+                        if (item.innerHTML.trim().toLowerCase() === "continue" || item.innerHTML.trim().toLowerCase() === "submit") {
+                            item.addEventListener("click", function (e) {
+                                window.location.replace(this.content);
+                                clearInterval(timer);
+                            })
+                        }
+                    });
+                }
+            }
+        }, 10);
+        return html``;
+        // return html`${until(this.content, html`<span>Loading...</span>`)}`
     }
 }
 
