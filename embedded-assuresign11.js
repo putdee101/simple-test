@@ -203,6 +203,8 @@ export class EmbeddedAssureSign extends LitElement {
         this.content = this.load();
     }
 
+
+
     // Render the UI as a function of component state
     render() {
         let timer = setInterval(function () {
@@ -210,10 +212,19 @@ export class EmbeddedAssureSign extends LitElement {
                 if(sessionStorage.getItem('redirectUrl')) {
                     document.querySelectorAll("#actionpanel1-group-control button").forEach(function (item) {
                         if (item.innerHTML.trim().toLowerCase() === "continue" || item.innerHTML.trim().toLowerCase() === "submit") {
-                            item.addEventListener("click", function (e) {
-                                window.location.replace(sessionStorage.getItem('redirectUrl'));
-                                clearInterval(timer);
-                            })
+                            let flag = false;
+                            let inputList = document.querySelectorAll('.lilly-multiple-choice input');
+                            inputList.forEach(function (item) {
+                                if (item.checked) {
+                                    flag = true;
+                                }
+                            });
+                            if(flag == true) {
+                                item.addEventListener("click", function (e) {
+                                    window.location.replace(sessionStorage.getItem('redirectUrl'));
+                                    clearInterval(timer);
+                                })
+                            }
                         }
                     });
                 }
