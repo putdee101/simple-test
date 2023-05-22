@@ -78,9 +78,6 @@ var LillySkipPage = _decorate([e$1("lilly-skip-page")], function (_initialize, _
                   }
                 }
               });
-            } else {
-              clearInterval(timer);
-              _this2.skipCount = 0;
             }
           }
         }, 10);
