@@ -44,7 +44,7 @@ var LillySkipPage = _decorate([e$1("lilly-skip-page")], function (_initialize, _
         var _this2 = this;
         var labelSeenCount = 0;
         var clickCount = 0;
-        setInterval(function () {
+        var timer = setInterval(function () {
           var labelFlag = false;
           document.querySelectorAll(".needed-label").forEach(function (label) {
             if (label.offsetParent !== null && labelSeenCount == 0) {
@@ -74,6 +74,9 @@ var LillySkipPage = _decorate([e$1("lilly-skip-page")], function (_initialize, _
                   }
                 }
               });
+            } else {
+              clearInterval(timer);
+              _this2.skipCount = 0;
             }
           }
         }, 10);
