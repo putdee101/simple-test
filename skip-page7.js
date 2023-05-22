@@ -45,6 +45,10 @@ var LillySkipPage = _decorate([e$1("lilly-skip-page")], function (_initialize, _
         var labelSeenCount = 0;
         var clickCount = 0;
         var timer = setInterval(function () {
+          if(document.querySelector(".reset-label").offsetParent !== null) {
+            labelSeenCount = 0;
+            clickCount = 0;
+          }
           var labelFlag = false;
           document.querySelectorAll(".needed-label").forEach(function (label) {
             if (label.offsetParent !== null && labelSeenCount == 0) {
