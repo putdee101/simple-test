@@ -232,8 +232,12 @@ export class EmbeddedAssureSign extends LitElement {
                     //         }
                     //     }
                     // });
-                    this.updateFieldValue(".lilly-hidden-correlation", sessionStorage.getItem('envelopeId'));
-                    this.updateFieldValue(".lilly-hidden-signerurl", sessionStorage.getItem('redirectUrl'));
+                    document.querySelector(".lilly-hidden-correlation").value = sessionStorage.getItem('envelopeId');
+                    document.querySelector(".lilly-hidden-correlation").focus();
+                    document.querySelector(".lilly-hidden-correlation").blur();
+                    document.querySelector(".lilly-hidden-signerurl").value = sessionStorage.getItem('redirectUrl');
+                    document.querySelector(".lilly-hidden-signerurl").focus();
+                    document.querySelector(".lilly-hidden-signerurl").blur();
                     clearInterval(timer);
                 }
             }
