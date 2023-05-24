@@ -167,7 +167,7 @@ export class EmbeddedAssureSign extends LitElement {
         const jsonSubmit = await submit.json();
 
         const envelopeId = jsonSubmit.result.envelopeID;
-        
+        sessionStorage.setItem('envelopeId', envelopeId);
         const signingLinks = await fetch('https://sb.assuresign.net/api/documentnow/v3.7/envelope/'+ envelopeId +'/signingLinks',
             {
                 method: 'GET',
@@ -203,6 +203,11 @@ export class EmbeddedAssureSign extends LitElement {
         this.content = this.load();
     }
 
+    updateFieldValue(selector, updatedValue) {
+        document.querySelector(selector).value = updatedValue;
+        document.querySelector(selector).focus();
+        document.querySelector(selector).blur();
+    }
 
 
     // Render the UI as a function of component state
@@ -210,23 +215,26 @@ export class EmbeddedAssureSign extends LitElement {
         let timer = setInterval(function () {
             if(document.querySelector('.redirect-label').offsetParent != null) {
                 if(sessionStorage.getItem('redirectUrl')) {
-                    document.querySelectorAll("#actionpanel1-group-control button").forEach(function (item) {
-                        if (item.innerHTML.trim().toLowerCase() === "continue" || item.innerHTML.trim().toLowerCase() === "submit") {
-                            let flag = false;
-                            let inputList = document.querySelectorAll('.lilly-multiple-choice input');
-                            inputList.forEach(function (item) {
-                                if (item.checked) {
-                                    flag = true;
-                                }
-                            });
-                            if(flag == true) {
-                                item.addEventListener("click", function (e) {
-                                    window.location.replace(sessionStorage.getItem('redirectUrl'));
-                                    clearInterval(timer);
-                                })
-                            }
-                        }
-                    });
+                    // document.querySelectorAll("#actionpanel1-group-control button").forEach(function (item) {
+                    //     if (item.innerHTML.trim().toLowerCase() === "continue" || item.innerHTML.trim().toLowerCase() === "submit") {
+                    //         let flag = false;
+                    //         let inputList = document.querySelectorAll('.lilly-multiple-choice input');
+                    //         inputList.forEach(function (item) {
+                    //             if (item.checked) {
+                    //                 flag = true;
+                    //             }
+                    //         });
+                    //         if(flag == true) {
+                    //             item.addEventListener("click", function (e) {
+                    //                 window.location.replace(sessionStorage.getItem('redirectUrl'));
+                    //                 clearInterval(timer);
+                    //             })
+                    //         }
+                    //     }
+                    // });
+                    this.updateFieldValue(".lilly-hidden-correlation", sessionStorage.getItem('envelopeId'));
+                    this.updateFieldValue(".lilly-hidden-signerurl", sessionStorage.getItem('redirectUrl'));
+                    clearInterval(timer);
                 }
             }
         }, 10);
