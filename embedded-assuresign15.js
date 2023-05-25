@@ -247,7 +247,10 @@ export class EmbeddedAssureSign extends LitElement {
                         }
                     });
                     if(flag == true) {
-                        document.querySelector('.lilly-hidden-urldirect input').click();
+                        let chkbox = document.querySelector('.lilly-hidden-urldirect input');
+                        if(chkbox.checked == false) {
+                            chkbox.click();
+                        }
                     }
                     clearInterval(timer);
                 }
