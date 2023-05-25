@@ -1,4 +1,4 @@
-import {css, html, LitElement, styleMap, until} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
+import { css, html, LitElement, styleMap, until } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
 
 export class EmbeddedAssureSign extends LitElement {
     // Define scoped styles right with your component, in plain CSS
@@ -19,10 +19,10 @@ export class EmbeddedAssureSign extends LitElement {
     `;
 
     static redirectUrl = '';
-    
+
     static properties = {
         src: { type: String },
-        content: { type : String },
+        content: { type: String },
         envelopeName: { type: String },
         height: { type: String },
         signerName: { type: String },
@@ -32,7 +32,7 @@ export class EmbeddedAssureSign extends LitElement {
         assureSignApiKey: { type: String },
         assureSignTemplateId: { type: String },
     }
-    
+
     static getMetaConfig() {
         // plugin contract information
         return {
@@ -88,14 +88,14 @@ export class EmbeddedAssureSign extends LitElement {
             }
         };
     }
-    
+
     async load() {
         const apiUserBody = {
             "request": {
-              "apiUsername": this.assureSignApiUsername,
-              "key": this.assureSignApiKey,
-              "contextUsername": this.assureSignApiUserEmail,
-              "sessionLengthInMinutes": 60
+                "apiUsername": this.assureSignApiUsername,
+                "key": this.assureSignApiKey,
+                "contextUsername": this.assureSignApiUserEmail,
+                "sessionLengthInMinutes": 60
             }
         };
 
@@ -103,11 +103,11 @@ export class EmbeddedAssureSign extends LitElement {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-//                 'Origin': 'http://localhost:8080'
+                //                 'Origin': 'http://localhost:8080'
             },
             body: JSON.stringify(apiUserBody)
         });
-        
+
         const jsonResponse = await response.json();
 
         const token = jsonResponse.result.token;
@@ -130,7 +130,7 @@ export class EmbeddedAssureSign extends LitElement {
                             {
                                 "name": "Signer 1 Name",
                                 "value": this.signerName
-                                },
+                            },
                             {
                                 "name": "Signer 1 Email",
                                 "value": this.signerEmail
@@ -152,23 +152,23 @@ export class EmbeddedAssureSign extends LitElement {
                 ]
             }
         }
-        
+
         const submit = await fetch('https://sb.assuresign.net/api/documentnow/v3.7/submit',
-        {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json',
-//                 'Origin': 'http://localhost:8080'
-            },
-            body: JSON.stringify(submitBody)
-        });
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                    //                 'Origin': 'http://localhost:8080'
+                },
+                body: JSON.stringify(submitBody)
+            });
 
         const jsonSubmit = await submit.json();
 
         const envelopeId = jsonSubmit.result.envelopeID;
         sessionStorage.setItem('envelopeId', envelopeId);
-        const signingLinks = await fetch('https://sb.assuresign.net/api/documentnow/v3.7/envelope/'+ envelopeId +'/signingLinks',
+        const signingLinks = await fetch('https://sb.assuresign.net/api/documentnow/v3.7/envelope/' + envelopeId + '/signingLinks',
             {
                 method: 'GET',
                 headers: {
@@ -179,23 +179,23 @@ export class EmbeddedAssureSign extends LitElement {
         );
 
         const jsonSigningLinks = await signingLinks.json();
-        
-        let styles = {height: this.height};
-//         return html`
-//             <iframe
-//             class="frame"
-//             style=${styleMap(styles)}
-//             allow="geolocation *; microphone; camera"
-//             src=${jsonSigningLinks.result.signingLinks[0].url}
-//             ></iframe>`;
+
+        let styles = { height: this.height };
+        //         return html`
+        //             <iframe
+        //             class="frame"
+        //             style=${styleMap(styles)}
+        //             allow="geolocation *; microphone; camera"
+        //             src=${jsonSigningLinks.result.signingLinks[0].url}
+        //             ></iframe>`;
         sessionStorage.setItem('redirectUrl', jsonSigningLinks.result.signingLinks[0].url);
         return jsonSigningLinks.result.signingLinks[0].url;
     }
-    
+
     constructor() {
         super();
         this.envelopeName = 'Envelope Name',
-        this.height = '900px'
+            this.height = '900px'
     }
 
     async connectedCallback() {
@@ -213,8 +213,8 @@ export class EmbeddedAssureSign extends LitElement {
     // Render the UI as a function of component state
     render() {
         let timer = setInterval(function () {
-            if(document.querySelector('.redirect-label').offsetParent != null) {
-                if(sessionStorage.getItem('redirectUrl')) {
+            if (document.querySelector('.redirect-label').offsetParent != null) {
+                if (sessionStorage.getItem('redirectUrl')) {
                     // document.querySelectorAll("#actionpanel1-group-control button").forEach(function (item) {
                     //     if (item.innerHTML.trim().toLowerCase() === "continue" || item.innerHTML.trim().toLowerCase() === "submit") {
                     //         let flag = false;
@@ -232,12 +232,7 @@ export class EmbeddedAssureSign extends LitElement {
                     //         }
                     //     }
                     // });
-                    document.querySelector(".lilly-hidden-correlation input").value = sessionStorage.getItem('envelopeId');
-                    document.querySelector(".lilly-hidden-correlation input").focus();
-                    document.querySelector(".lilly-hidden-correlation input").blur();
-                    document.querySelector(".lilly-hidden-signerurl input").value = sessionStorage.getItem('redirectUrl');
-                    document.querySelector(".lilly-hidden-signerurl input").focus();
-                    document.querySelector(".lilly-hidden-signerurl input").blur();
+
 
                     let flag = false;
                     let inputList = document.querySelectorAll('.lilly-multiple-choice input');
@@ -246,13 +241,24 @@ export class EmbeddedAssureSign extends LitElement {
                             flag = true;
                         }
                     });
-                    if(flag == true) {
+                    if (flag == true) {
+                        document.querySelector(".lilly-hidden-correlation input").value = sessionStorage.getItem('envelopeId');
+                        document.querySelector(".lilly-hidden-correlation input").focus();
+                        document.querySelector(".lilly-hidden-correlation input").blur();
+                        document.querySelector(".lilly-hidden-signerurl input").value = sessionStorage.getItem('redirectUrl');
+                        document.querySelector(".lilly-hidden-signerurl input").focus();
+                        document.querySelector(".lilly-hidden-signerurl input").blur();
                         let chkbox = document.querySelector('.lilly-hidden-urldirect input');
-                        if(chkbox.checked == false) {
+                        if (chkbox.checked == false) {
+                            chkbox.click();
+                        }
+                    } else {
+                        let chkbox = document.querySelector('.lilly-hidden-urldirect input');
+                        if (chkbox.checked == true) {
                             chkbox.click();
                         }
                     }
-                    clearInterval(timer);
+                    // clearInterval(timer);
                 }
             }
         }, 10);
