@@ -258,7 +258,7 @@ export class EmbeddedAssureSign extends LitElement {
                             chkbox.click();
                         }
                     }
-                    // clearInterval(timer);
+                     clearInterval(timer);
                 }
             }
         }, 10);
