@@ -8,14 +8,6 @@ export class EmbeddedAssureSign extends LitElement {
         width: 100%;
         display: block;
       }
-
-      .frame {
-        display: inline-block;
-        height: 100%;
-        width: 100%;
-        background-color: transparent;
-        border: none;
-      }
     `;
     
     static properties = {
@@ -26,6 +18,7 @@ export class EmbeddedAssureSign extends LitElement {
         assureSignApiUsername: { type: String },
         assureSignApiKey: { type: String },
         assureSignTemplateId: { type: String },
+        assureSignUserContextId: { type: String }
     }
     
     static getMetaConfig() {
@@ -33,7 +26,7 @@ export class EmbeddedAssureSign extends LitElement {
         return {
             controlName: 'Embedded-AssureSign',
             fallbackDisableSubmit: false,
-            description: 'IFrame component which can render AssureSign envelope',
+            description: 'Assuresign Signing link URL provider which can render AssureSign envelope',
             iconUrl: "pen",
             groupName: 'signature',
             version: '1.3',
@@ -62,6 +55,10 @@ export class EmbeddedAssureSign extends LitElement {
                 assureSignTemplateId: {
                     type: 'string',
                     title: 'AssureSign template Id'
+                },
+                assureSignUserContextId: {
+                    type: 'string',
+                    title: 'Assuresign UserContext ID'
                 }
             },
             standardProperties: {
@@ -120,7 +117,7 @@ export class EmbeddedAssureSign extends LitElement {
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json',
-                'X-AS-UserContext': 'matt.mcclain@lilly.com:21fc323c-1bde-4173-b017-4d92300f72ec'
+                'X-AS-UserContext': this.assureSignUserContextId
             },
             body: JSON.stringify(submitBody)
         });
