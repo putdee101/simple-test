@@ -1,4 +1,4 @@
-import {css, html, LitElement, styleMap, until} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
+import {css, html, LitElement} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
 
 export class EmbeddedAssureSign extends LitElement {
     // Define scoped styles right with your component, in plain CSS
@@ -112,7 +112,7 @@ export class EmbeddedAssureSign extends LitElement {
                     }
                 ]
             }
-        }
+        };
         
         const submit = await fetch('https://sb.assuresign.net/api/documentnow/v3.7/submit',
         {
@@ -166,19 +166,19 @@ export class EmbeddedAssureSign extends LitElement {
                     document.querySelector(".lilly-hidden-signerurl input").focus();
                     document.querySelector(".lilly-hidden-signerurl input").blur();
 
-                    let flag = false;
-                    let inputList = document.querySelectorAll('.lilly-multiple-choice input');
-                    inputList.forEach(function (item) {
-                        if (item.checked) {
-                            flag = true;
-                        }
-                    });
-                    if(flag == true) {
-                        let chkbox = document.querySelector('.lilly-hidden-urldirect input');
-                        if(chkbox.checked == false) {
-                            chkbox.click();
-                        }
-                    }
+                    // let isSupportSelected = false;
+                    // let inputList = document.querySelectorAll('.lilly-multiple-choice input');
+                    // inputList.forEach(function (item) {
+                    //     if (item.checked) {
+                    //         isSupportSelected = true;
+                    //     }
+                    // });
+                    // if(isSupportSelected == true) {
+                    //     let chkbox = document.querySelector('.lilly-hidden-urldirect input');
+                    //     if(chkbox.checked == false) {
+                    //         chkbox.click();
+                    //     }
+                    // }
                     clearInterval(timer);
                 }
             }
