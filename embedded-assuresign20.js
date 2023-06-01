@@ -144,10 +144,18 @@ export class EmbeddedAssureSign extends LitElement {
         sessionStorage.setItem('redirectUrl', jsonSigningLinks.result.signingLinks[0].url);
         return jsonSigningLinks.result.signingLinks[0].url;
     }
+
+    updateFieldValue(selector, updatedValue) {
+        document.querySelector(selector).value = updatedValue;
+        document.querySelector(selector).focus();
+        document.querySelector(selector).blur();
+    }
     
     constructor() {
         super();
     }
+
+
 
     async connectedCallback() {
         super.connectedCallback();
@@ -159,26 +167,15 @@ export class EmbeddedAssureSign extends LitElement {
         let timer = setInterval(function () {
             if(document.querySelector('.redirect-label').offsetParent != null) {
                 if(sessionStorage.getItem('redirectUrl')) {
-                    document.querySelector(".lilly-hidden-correlation input").value = sessionStorage.getItem('envelopeId');
-                    document.querySelector(".lilly-hidden-correlation input").focus();
-                    document.querySelector(".lilly-hidden-correlation input").blur();
-                    document.querySelector(".lilly-hidden-signerurl input").value = sessionStorage.getItem('redirectUrl');
-                    document.querySelector(".lilly-hidden-signerurl input").focus();
-                    document.querySelector(".lilly-hidden-signerurl input").blur();
+                    this.updateFieldValue(".lilly-hidden-correlation input", sessionStorage.getItem('envelopeId'));
+                    this.updateFieldValue(".lilly-hidden-signerurl input", sessionStorage.getItem('redirectUrl'));
+                    // document.querySelector(".lilly-hidden-correlation input").value = sessionStorage.getItem('envelopeId');
+                    // document.querySelector(".lilly-hidden-correlation input").focus();
+                    // document.querySelector(".lilly-hidden-correlation input").blur();
+                    // document.querySelector(".lilly-hidden-signerurl input").value = sessionStorage.getItem('redirectUrl');
+                    // document.querySelector(".lilly-hidden-signerurl input").focus();
+                    // document.querySelector(".lilly-hidden-signerurl input").blur();
 
-                    // let isSupportSelected = false;
-                    // let inputList = document.querySelectorAll('.lilly-multiple-choice input');
-                    // inputList.forEach(function (item) {
-                    //     if (item.checked) {
-                    //         isSupportSelected = true;
-                    //     }
-                    // });
-                    // if(isSupportSelected == true) {
-                    //     let chkbox = document.querySelector('.lilly-hidden-urldirect input');
-                    //     if(chkbox.checked == false) {
-                    //         chkbox.click();
-                    //     }
-                    // }
                     clearInterval(timer);
                 }
             }
