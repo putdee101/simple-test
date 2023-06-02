@@ -1,15 +1,7 @@
-import {css, html, LitElement} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
+import {html, LitElement} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
 
 export class EmbeddedAssureSign extends LitElement {
-    // Define scoped styles right with your component, in plain CSS
-    static styles = css`
-      :host {
-        height: 100%;
-        width: 100%;
-        display: block;
-      }
-    `;
-    
+   
     static properties = {
         src: { type: String },
         content: { type : String },
@@ -149,13 +141,13 @@ export class EmbeddedAssureSign extends LitElement {
     }
     
     constructor() {
-        super();
+        // super();
     }
 
-    async connectedCallback() {
-        super.connectedCallback();
-        this.content = this.load();
-    }
+    // async connectedCallback() {
+    //     super.connectedCallback();
+    //     this.content = this.load();
+    // }
 
     updateOnRedirectLabel() {
         if(sessionStorage.getItem('redirectUrl')) {
@@ -167,6 +159,19 @@ export class EmbeddedAssureSign extends LitElement {
     // Render the UI as a function of component state
     render() {
         let this2 = this;
+        let supportSelectionTimer = setInterval(function () {
+            let isSupportSelected = false;
+            let inputList = document.querySelectorAll('.lilly-multiple-choice input');
+            inputList.forEach(function (item) {
+                if (item.checked) {
+                    isSupportSelected = true;
+                }
+            });
+            if(isSupportSelected == true) {
+                this2.load();
+                clearInterval(supportSelectionTimer);
+            }
+        }, 10);
         let timer = setInterval(function () {
             if(document.querySelector('.redirect-label').offsetParent != null) {
                 this2.updateOnRedirectLabel();
