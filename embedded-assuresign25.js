@@ -57,7 +57,7 @@ export class EmbeddedAssureSign extends LitElement {
                 readOnly: true,
                 description: true,
             }
-        };
+        }
     }
     
     async load() {
@@ -141,7 +141,7 @@ export class EmbeddedAssureSign extends LitElement {
     }
     
     constructor() {
-        // super();
+        super();
     }
 
     // async connectedCallback() {
