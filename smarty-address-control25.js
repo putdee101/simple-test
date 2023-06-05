@@ -110,7 +110,12 @@ export default class AddressAutoComplete extends LitElement {
     }
 
     handleInput(event) {
-        if (this.inputValue && this.inputValue.length >= this.minChar ? parseInt(this.minChar.toString()) : 4) {
+        if(this.minChar && typeof this.minChar == "string") {
+            this.minChar = parseInt(this.minChar)
+        } else {
+            this.minChar = 4
+        }
+        if (this.inputValue && this.inputValue.length >= this.minChar) {
             this.getSmartyStreets();
         } else {
             this.addresses = [];
