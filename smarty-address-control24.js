@@ -1,5 +1,5 @@
 import { html, LitElement, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
-const PLUGIN_NAME = 'smarty-address-new'
+const PLUGIN_NAME = 'smarty-address-control'
 
 export default class AddressAutoComplete extends LitElement {
 
@@ -38,6 +38,7 @@ export default class AddressAutoComplete extends LitElement {
         value: { type: String },
         labelName: {type: String },
         pageName: {type: String },
+        minChar: {type: Number}
     };
 
     static get properties() {
@@ -51,10 +52,10 @@ export default class AddressAutoComplete extends LitElement {
 
     static getMetaConfig() {
         return {
-            controlName: PLUGIN_NAME,
+            controlName: 'SmartyAddressControl',
             fallbackDisableSubmit: false,
             description: 'Smarty Streets US Address Autocomplete, Pro Edition Search Component',
-            groupName: 'Samples',
+            groupName: 'Lilly Plugins',
             version: '1.0',
             properties: {
                 apiKey: {
@@ -68,6 +69,10 @@ export default class AddressAutoComplete extends LitElement {
                 pageName: {
                     type: 'string',
                     title: 'Page Name'
+                },
+                minChar: {
+                    type: 'number',
+                    title: 'Min Char to enter'
                 },
                 value: {
                     type: 'string',
@@ -105,7 +110,7 @@ export default class AddressAutoComplete extends LitElement {
     }
 
     handleInput(event) {
-        if (this.inputValue && this.inputValue.length >= 4) {
+        if (this.inputValue && this.inputValue.length >= this.minChar ? parseInt(this.minChar.toString()) : 4) {
             this.getSmartyStreets();
         } else {
             this.addresses = [];
@@ -127,16 +132,9 @@ export default class AddressAutoComplete extends LitElement {
         };
         
         inputElement.value = addObj.street_line;
-        document.querySelector(`.${this.pageName}-user-city input`).value = addObj.city;
-        document.querySelector(`.${this.pageName}-user-city input`).focus();
-        document.querySelector(`.${this.pageName}-user-city input`).blur();
-        document.querySelector(`.${this.pageName}-user-state input`).value = addObj.state;
-        document.querySelector(`.${this.pageName}-user-state input`).focus();
-        document.querySelector(`.${this.pageName}-user-state input`).blur();
-        document.querySelector(`.${this.pageName}-user-zip input`).value = addObj.zipcode;
-        document.querySelector(`.${this.pageName}-user-zip input`).focus();
-        document.querySelector(`.${this.pageName}-user-zip input`).blur();
-//         this.inputValue = addObj.street_line;
+        this.updateFieldValue(`.${this.pageName}-user-city input`, addObj.city);
+        this.updateFieldValue(`.${this.pageName}-user-state input`, addObj.state);
+        this.updateFieldValue(`.${this.pageName}-user-zip input`, addObj.zipcode);
         const nintexEvent = new CustomEvent('ntx-value-change', args);
         this.dispatchEvent(nintexEvent);
     }
@@ -154,6 +152,12 @@ export default class AddressAutoComplete extends LitElement {
 
     updateInputValue(event) {
         this.inputValue = event.srcElement.value;
+    }
+
+    updateFieldValue(selector, updatedValue) {
+        document.querySelector(selector).value = updatedValue;
+        document.querySelector(selector).focus();
+        document.querySelector(selector).blur();
     }
 
     constructor() {
