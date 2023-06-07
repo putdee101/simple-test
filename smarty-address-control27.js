@@ -99,7 +99,7 @@ export default class AddressAutoComplete extends LitElement {
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
             <label class="nx-form-label nx-break-word nx-theme-label-1"><span class="nx-title label-style">${this.labelName}</span></label>
             <div class="input-group input-group-sm nx-zinc-control-input" id="input-container" style="line-height: 1rem;">            
-                <input type="text" class="form-control nx-theme-input-1 input-style" value="${this.inputValue}" @keyup=${this.updateInputValue} aria-label="address" id="address" style="font-size: 14px; padding: 7px 12px 7px 12px; ${inputStyle}" length="34"/>
+                <input type="text" class="form-control nx-theme-input-1 input-style" value="${this.inputValue}" @keyup=${this.updateInputValue} aria-label="address" id="address" style="font-size: 14px; padding: 7px 12px 7px 12px; ${inputStyle}" maxlength="34" autocomplete="off"/>
             </div>
             <div>
                 <ul class="list-group list-group-style">
@@ -110,12 +110,7 @@ export default class AddressAutoComplete extends LitElement {
     }
 
     handleInput(event) {
-        if(this.minChar == undefined || this.minChar == null || this.minChar == "") {
-            this.minChar = 4
-        }
-        if(this.minChar && typeof this.minChar == "string") {
-            this.minChar = parseInt(this.minChar)
-        }
+        this.minChar = (this.minChar != null && this.minChar ? +this.minChar : 4);
         if (this.inputValue && this.inputValue.length >= this.minChar) {
             this.getSmartyStreets();
         } else {
@@ -154,6 +149,17 @@ export default class AddressAutoComplete extends LitElement {
         });
         const result = await response.json();
         this.addresses = result.suggestions;
+        if(this.addresses.length == 0) {
+            const args = {
+                bubbles: true,
+                cancelable: false,
+                composed: true,
+                detail: this.inputValue,
+            };
+
+            const nintexEvent = new CustomEvent('ntx-value-change', args);
+            this.dispatchEvent(nintexEvent);
+        }
     }
 
     updateInputValue(event) {
